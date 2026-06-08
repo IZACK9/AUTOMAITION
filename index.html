@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IZA9 | AI Automation for Small Law Firms</title>
+<title>IZA9｜社労士事務所専門 AI業務自動化</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #0a0e1a;
@@ -17,18 +17,33 @@
   --text: #f1f5f9;
   --text-muted: #94a3b8;
   --border: rgba(59,130,246,0.2);
+  --glow: rgba(59,130,246,0.15);
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
   line-height: 1.7;
 }
 
-/* HEADER */
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ── HEADER ── */
 header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -41,14 +56,39 @@ header {
   background: rgba(10,14,26,0.85);
   border-bottom: 1px solid var(--border);
 }
-.logo { font-family: 'Inter', sans-serif; font-size: 1.6rem; font-weight: 900; color: var(--accent2); letter-spacing: 0.05em; }
-.logo span { color: var(--gold); }
-nav a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; margin-left: 2rem; transition: color 0.2s; }
-nav a:hover { color: var(--text); }
-.header-cta { background: var(--accent); color: white !important; padding: 0.5rem 1.2rem; border-radius: 4px; font-weight: 700; font-size: 0.8rem !important; }
-.header-cta:hover { background: var(--accent2) !important; }
 
-/* HERO */
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.1em;
+  color: var(--accent2);
+}
+
+.logo span {
+  color: var(--gold);
+}
+
+nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-left: 2rem;
+  transition: color 0.2s;
+}
+nav a:hover { color: var(--text); }
+
+.header-cta {
+  background: var(--accent);
+  color: white !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8rem !important;
+  transition: background 0.2s !important;
+}
+.header-cta:hover { background: var(--accent2) !important; color: white !important; }
+
+/* ── HERO ── */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -57,533 +97,1037 @@ nav a:hover { color: var(--text); }
   padding: 8rem 2rem 4rem;
   overflow: hidden;
 }
+
 .hero-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(59,130,246,0.12) 0%, transparent 70%),
-              radial-gradient(ellipse 40% 40% at 20% 80%, rgba(245,158,11,0.06) 0%, transparent 60%);
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(59,130,246,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(245,158,11,0.06) 0%, transparent 60%);
 }
+
 .hero-grid {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
 }
-.hero-content { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; width: 100%; }
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .hero-badge {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
-  color: var(--gold); font-size: 0.8rem; font-weight: 700;
-  padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.3);
+  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.6s ease both;
 }
-.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
 
-h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 900; line-height: 1.15; margin-bottom: 1.5rem; }
-h1 .highlight { color: var(--accent2); }
-h1 .serif { font-family: 'Playfair Display', serif; font-style: italic; }
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
 
-.hero-sub { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; }
-.hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+h1 .highlight {
+  color: var(--accent2);
+  position: relative;
+}
+
+h1 .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 3rem;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: var(--accent); color: white; text-decoration: none;
-  padding: 1rem 2rem; border-radius: 6px; font-weight: 700; font-size: 1rem;
-  transition: all 0.2s; box-shadow: 0 0 30px rgba(59,130,246,0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.2s;
+  box-shadow: 0 0 30px rgba(59,130,246,0.3);
 }
-.btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+.btn-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(59,130,246,0.5);
+}
+
 .btn-secondary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  background: transparent; color: var(--text-muted); text-decoration: none;
-  padding: 1rem 2rem; border-radius: 6px; font-weight: 500;
-  border: 1px solid var(--border); transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
 }
-.btn-secondary:hover { color: var(--text); border-color: var(--accent); }
+.btn-secondary:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
 
-.hero-stats { display: flex; gap: 3rem; flex-wrap: wrap; }
-.stat-item { border-left: 2px solid var(--accent); padding-left: 1rem; }
-.stat-num { font-family: 'Inter', sans-serif; font-size: 2.2rem; font-weight: 900; color: var(--accent2); line-height: 1; }
-.stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; }
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 4rem;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
 
-/* SECTIONS */
-section { padding: 6rem 2rem; position: relative; }
-.container { max-width: 1100px; margin: 0 auto; }
-.section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
-.section-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; line-height: 1.3; margin-bottom: 1rem; }
-.section-desc { color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; }
+.stat-item {
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+}
 
-/* PAIN */
-.pain-section { background: var(--surface); }
-.pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--accent2);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION ── */
+section {
+  padding: 6rem 2rem;
+  position: relative;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+/* ── PAIN SECTION ── */
+.pain-section {
+  background: var(--surface);
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
 .pain-card {
-  background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
-  position: relative; overflow: hidden; transition: border-color 0.3s;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
 }
-.pain-card:hover { border-color: rgba(59,130,246,0.5); }
-.pain-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); }
-.pain-icon { font-size: 2rem; margin-bottom: 1rem; }
-.pain-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-.pain-card p { font-size: 0.875rem; color: var(--text-muted); }
 
-/* STAT SECTION */
-.stat-section { background: var(--surface); }
-.big-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-.big-stat-card {
-  background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;
-  text-align: center;
+.pain-card:hover {
+  border-color: rgba(59,130,246,0.5);
 }
-.big-stat-card.red { border-color: rgba(239,68,68,0.3); }
-.big-stat-card.green { border-color: rgba(34,197,94,0.3); }
-.big-num { font-size: 3rem; font-weight: 900; line-height: 1; margin-bottom: 0.5rem; }
-.big-num.red { color: #ef4444; }
-.big-num.green { color: #22c55e; }
-.big-num.blue { color: var(--accent2); }
-.big-stat-label { font-size: 0.85rem; color: var(--text-muted); }
-.big-stat-note { font-size: 0.75rem; color: #475569; margin-top: 0.5rem; }
 
-/* SERVICES */
-.service-list { display: grid; gap: 1.5rem; margin-top: 3rem; }
+.pain-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.pain-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.pain-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.pain-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ── SERVICE SECTION ── */
+.service-list {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
 .service-item {
-  display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: start;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
   transition: all 0.3s;
 }
-.service-item:hover { border-color: var(--accent); background: var(--surface2); transform: translateX(4px); }
-.service-num { font-size: 3rem; font-weight: 900; color: var(--border); line-height: 1; width: 60px; }
-.service-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent2); }
-.service-body p { font-size: 0.9rem; color: var(--text-muted); }
-.service-tag { display: inline-block; background: rgba(59,130,246,0.1); color: var(--accent2); font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px; margin-top: 0.8rem; margin-right: 0.4rem; }
 
-/* PRICING */
-.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.service-item:hover {
+  border-color: var(--accent);
+  background: var(--surface2);
+  transform: translateX(4px);
+}
+
+.service-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--border);
+  line-height: 1;
+  width: 60px;
+}
+
+.service-body h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--accent2);
+}
+
+.service-body p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.service-tag {
+  display: inline-block;
+  background: rgba(59,130,246,0.1);
+  color: var(--accent2);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-top: 0.8rem;
+  margin-right: 0.4rem;
+}
+
+/* ── PRICING ── */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
 .pricing-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem;
-  position: relative; transition: all 0.3s;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  transition: all 0.3s;
 }
-.pricing-card:hover { transform: translateY(-4px); border-color: var(--accent); }
-.pricing-card.featured { border-color: var(--accent); background: var(--surface2); }
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.pricing-card.featured {
+  border-color: var(--accent);
+  background: var(--surface2);
+}
+
 .pricing-card.featured::before {
-  content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  background: var(--accent); color: white; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 1rem; border-radius: 100px;
+  content: 'おすすめ';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 1rem;
+  border-radius: 100px;
 }
-.plan-name { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
-.plan-price { font-size: 3rem; font-weight: 900; color: var(--text); line-height: 1; margin-bottom: 0.3rem; }
-.plan-price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
-.plan-range { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-.plan-features { list-style: none; margin-bottom: 2rem; }
-.plan-features li { font-size: 0.875rem; color: var(--text-muted); padding: 0.5rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
-.plan-features li::before { content: '→'; color: var(--accent); font-size: 0.75rem; flex-shrink: 0; }
-.plan-btn { display: block; text-align: center; padding: 0.875rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: all 0.2s; background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
-.plan-btn:hover { border-color: var(--accent); color: var(--text); }
-.pricing-card.featured .plan-btn { background: var(--accent); border-color: var(--accent); color: white; }
-.pricing-card.featured .plan-btn:hover { background: var(--accent2); }
 
-/* FLOW */
-.flow-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 3rem; }
-.flow-step { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; }
-.flow-step-num { font-size: 3rem; font-weight: 900; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 0.5rem; }
-.flow-step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; }
-.flow-step p { font-size: 0.8rem; color: var(--text-muted); }
+.plan-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
 
-/* FREE AUDIT */
-.audit-section { background: var(--surface); }
-.audit-box {
+.plan-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.plan-price span {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.plan-range {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.plan-features {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.plan-features li {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.plan-features li::before {
+  content: '→';
+  color: var(--accent);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.plan-btn {
+  display: block;
+  text-align: center;
+  padding: 0.875rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.plan-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.pricing-card.featured .plan-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.pricing-card.featured .plan-btn:hover {
+  background: var(--accent2);
+}
+
+/* ── FREE DIAGNOSIS ── */
+.diagnosis-section {
+  background: var(--surface);
+}
+
+.diagnosis-box {
   background: linear-gradient(135deg, var(--surface2), var(--bg));
-  border: 1px solid var(--accent); border-radius: 20px; padding: 3rem; text-align: center; position: relative; overflow: hidden;
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
-.audit-box::before {
-  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+
+.diagnosis-box::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
   background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 70%);
   pointer-events: none;
 }
-.audit-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: var(--gold); font-size: 0.85rem; font-weight: 700; padding: 0.5rem 1.2rem; border-radius: 100px; margin-bottom: 1.5rem; }
-.audit-box h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; margin-bottom: 1rem; }
-.audit-box p { color: var(--text-muted); max-width: 500px; margin: 0 auto 2rem; font-size: 0.95rem; }
-.audit-list { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
-.audit-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-muted); }
-.audit-item::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
-.slots { font-size: 0.85rem; color: var(--gold); font-weight: 700; margin-top: 1rem; }
 
-/* FORM */
-.form-section { }
-.form-wrapper { max-width: 700px; margin: 0 auto; background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; }
-.form-wrapper h2 { font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; }
-.form-wrapper p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-muted); }
-.form-group label .required { color: var(--accent); margin-left: 0.3rem; }
-.form-group input, .form-group select, .form-group textarea {
-  width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-  padding: 0.875rem 1rem; color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.9rem;
-  transition: border-color 0.2s; outline: none;
+.diagnosis-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.4);
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
 }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
-.form-group select option { background: var(--surface); }
-.form-group textarea { resize: vertical; min-height: 120px; }
+
+.diagnosis-box h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.diagnosis-box p {
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  font-size: 0.95rem;
+}
+
+.diagnosis-list {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.diagnosis-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.diagnosis-item::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.slots {
+  font-size: 0.85rem;
+  color: var(--gold);
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+/* ── FLOW ── */
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 3rem;
+  position: relative;
+}
+
+.flow-step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.flow-step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--accent);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.flow-step h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.flow-step p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ── FORM SECTION ── */
+.form-section {
+  background: var(--surface);
+}
+
+.form-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3rem;
+}
+
+.form-wrapper h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+
+.form-wrapper p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+}
+
+.form-group label .required {
+  color: var(--accent);
+  margin-left: 0.3rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.875rem 1rem;
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+}
+
+.form-group select option {
+  background: var(--surface);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
 .form-submit {
-  width: 100%; background: var(--accent); color: white; border: none; padding: 1.1rem;
-  border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700;
-  cursor: pointer; transition: all 0.2s; box-shadow: 0 0 30px rgba(59,130,246,0.3);
+  width: 100%;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 1.1rem;
+  border-radius: 8px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 30px rgba(59,130,246,0.3);
 }
-.form-submit:hover { background: var(--accent2); transform: translateY(-2px); }
-.form-note { text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem; }
 
-/* FOOTER */
-footer { background: var(--bg); border-top: 1px solid var(--border); padding: 3rem 2rem; text-align: center; }
-.footer-logo { font-size: 2rem; font-weight: 900; color: var(--accent2); margin-bottom: 1rem; }
-.footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
-.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+.form-submit:hover {
+  background: var(--accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(59,130,246,0.5);
+}
+
+.form-note {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--accent2);
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
 .footer-links a:hover { color: var(--text); }
-.footer-copy { font-size: 0.75rem; color: var(--text-muted); }
 
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   header { padding: 1rem; }
   nav { display: none; }
   .hero { padding: 6rem 1.5rem 3rem; }
-  .hero-stats { gap: 1.5rem; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
   section { padding: 4rem 1.5rem; }
   .service-item { grid-template-columns: 1fr; }
   .service-num { display: none; }
-  .audit-box { padding: 2rem 1.5rem; }
+  .diagnosis-box { padding: 2rem 1.5rem; }
   .form-wrapper { padding: 2rem 1.5rem; }
-  .audit-list { flex-direction: column; align-items: center; }
+  .diagnosis-list { flex-direction: column; align-items: center; }
 }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
   <div class="logo">IZ<span>A</span>9</div>
   <nav>
-    <a href="#services">Services</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#flow">How It Works</a>
-    <a href="#contact" class="header-cta">Get Free Audit</a>
+    <a href="#services">サービス</a>
+    <a href="#pricing">料金</a>
+    <a href="#flow">導入の流れ</a>
+    <a href="#contact" class="header-cta">無料診断を受ける</a>
   </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-badge">AI Automation for Small Law Firms</div>
+    <div class="hero-badge">社労士事務所専門 AI自動化サービス</div>
     <h1>
-      Stop spending<br>
-      <span class="highlight">40% of your time</span><br>
-      on admin work
+      顧問先への<br>
+      <span class="highlight">督促・リマインド</span>を<br>
+      全自動化する
     </h1>
     <p class="hero-sub">
-      Client reminders, document follow-ups, deadline alerts, FAQ responses —
-      I automate the repetitive work so you can focus on what actually pays.
+      書類回収・期限アラート・FAQ対応まで。<br>
+      社労士事務所の「繰り返し業務」をAIに任せて、本来の業務に集中できる環境をつくります。
     </p>
     <div class="hero-cta-group">
-      <a href="#contact" class="btn-primary">Get Free Workflow Audit →</a>
-      <a href="#services" class="btn-secondary">See What I Automate</a>
+      <a href="#contact" class="btn-primary">
+        無料業務診断を受ける →
+      </a>
+      <a href="#services" class="btn-secondary">
+        サービス詳細を見る
+      </a>
     </div>
     <div class="hero-stats">
       <div class="stat-item">
         <div class="stat-num">3</div>
-        <div class="stat-label">Free audit spots left</div>
+        <div class="stat-label">無料診断 残り枠</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">$0</div>
-        <div class="stat-label">Setup fee</div>
+        <div class="stat-num">0</div>
+        <div class="stat-label">初期費用</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">2wks</div>
-        <div class="stat-label">Avg. time to go live</div>
+        <div class="stat-num">2万〜</div>
+        <div class="stat-label">月額スタート</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PAIN -->
 <section class="pain-section">
   <div class="container">
     <div class="section-label">PROBLEM</div>
-    <h2 class="section-title">Sound familiar?</h2>
+    <h2 class="section-title">こんな悩み、ありませんか？</h2>
     <div class="pain-grid">
       <div class="pain-card">
         <div class="pain-icon">📋</div>
-        <h3>Chasing clients for documents</h3>
-        <p>Sending the same follow-up email for the third time this week. Every. Single. Client.</p>
+        <h3>書類が揃わない</h3>
+        <p>顧問先への書類督促を何度も手動で行っている。催促のたびに時間が取られる。</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon">📅</div>
-        <h3>Deadline tracking is in your head</h3>
-        <p>One missed deadline away from a malpractice claim. And you know it.</p>
+        <h3>期限管理が属人化</h3>
+        <p>担当者の頭の中でしか管理されておらず、抜け漏れやヒヤリハットが起きやすい。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">📰</div>
+        <h3>法改正・助成金情報の収集が大変</h3>
+        <p>毎日チェックが必要な情報収集に時間を取られ、本来業務が後回しになる。</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon">💬</div>
-        <h3>Answering the same questions</h3>
-        <p>"What's the status of my case?" "Did you get my documents?" You answer these 10 times a day.</p>
+        <h3>同じ質問に何度も回答</h3>
+        <p>顧問先からのよくある質問対応が積み重なり、一日の業務時間を圧迫している。</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon">👤</div>
-        <h3>Can't scale without hiring</h3>
-        <p>You want more clients but the admin load already has you working weekends.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">💰</div>
-        <h3>Billing for less than you work</h3>
-        <p>40-50% of your hours go to non-billable admin. That's revenue you're leaving on the table.</p>
+        <h3>少人数で限界がある</h3>
+        <p>スタッフを増やさずに顧問先を増やしたいが、現状の業務量ではそれが難しい。</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon">🔧</div>
-        <h3>No time to set up systems</h3>
-        <p>You know automation would help. But who has time to figure out how to build it?</p>
+        <h3>ITツールを導入したいが不安</h3>
+        <p>DX化は必要と感じているが、自分たちで設定・運用できるか自信が持てない。</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="stat-section">
-  <div class="container">
-    <div class="section-label">THE NUMBERS</div>
-    <h2 class="section-title">What admin work is actually costing you</h2>
-    <p class="section-desc">Based on ABA research and average billing rates for small firm attorneys.</p>
-    <div class="big-stat-grid">
-      <div class="big-stat-card red">
-        <div class="big-num red">40-50%</div>
-        <div class="big-stat-label">of billable hours lost to non-billable admin</div>
-        <div class="big-stat-note">Source: ABA Legal Technology Survey</div>
-      </div>
-      <div class="big-stat-card red">
-        <div class="big-num red">$80K+</div>
-        <div class="big-stat-label">in annual revenue lost per attorney</div>
-        <div class="big-stat-note">At $200/hr billing rate</div>
-      </div>
-      <div class="big-stat-card green">
-        <div class="big-num green">~0hrs</div>
-        <div class="big-stat-label">admin time after automation</div>
-        <div class="big-stat-note">I handle setup and ongoing maintenance</div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- SERVICES -->
 <section id="services">
   <div class="container">
     <div class="section-label">SERVICES</div>
-    <h2 class="section-title">What I automate for you</h2>
-    <p class="section-desc">Every workflow I build is custom to your firm. No generic SaaS tools — I build and maintain it for you.</p>
+    <h2 class="section-title">自動化できる業務</h2>
+    <p class="section-desc">社労士事務所で実際に繰り返される業務を、AIと自動化ツールで代替します。</p>
     <div class="service-list">
       <div class="service-item">
         <div class="service-num">01</div>
         <div class="service-body">
-          <h3>Automated Client Reminders & Document Follow-ups</h3>
-          <p>Clients get automatic reminders via SMS, email, or messaging apps when documents are due. Escalating follow-ups if they don't respond. You never have to chase again.</p>
-          <span class="service-tag">SMS / Email</span>
-          <span class="service-tag">Auto follow-up</span>
+          <h3>顧問先へのLINE自動リマインド・督促</h3>
+          <p>書類提出期限が近づくと、顧問先のLINEへ自動でメッセージを送信。未提出の場合は段階的にフォローアップします。手動での督促作業がゼロになります。</p>
+          <span class="service-tag">LINE API</span>
+          <span class="service-tag">自動化</span>
         </div>
       </div>
       <div class="service-item">
         <div class="service-num">02</div>
         <div class="service-body">
-          <h3>Deadline & Calendar Alert System</h3>
-          <p>Court dates, filing deadlines, statute of limitations — all tracked automatically. Alerts go to you and your team before anything becomes critical.</p>
-          <span class="service-tag">Deadline tracking</span>
-          <span class="service-tag">Alerts</span>
+          <h3>助成金・法改正情報の自動収集・通知</h3>
+          <p>毎日の情報収集をAIが代行。厚労省・ハローワーク等のサイトを自動巡回し、重要な更新情報だけをLINEや指定の方法で通知します。</p>
+          <span class="service-tag">AI</span>
+          <span class="service-tag">情報収集</span>
         </div>
       </div>
       <div class="service-item">
         <div class="service-num">03</div>
         <div class="service-body">
-          <h3>Client Dashboard (Notion)</h3>
-          <p>Every client's status, documents, and next actions in one place. No more digging through emails to find where things stand.</p>
+          <h3>Notionで全顧問先の進捗を一元管理</h3>
+          <p>顧問先ごとの書類提出状況・対応状況をNotionダッシュボードで可視化。「どの顧問先が今どの状態か」が一目でわかります。</p>
           <span class="service-tag">Notion</span>
-          <span class="service-tag">Dashboard</span>
+          <span class="service-tag">ダッシュボード</span>
         </div>
       </div>
       <div class="service-item">
         <div class="service-num">04</div>
         <div class="service-body">
-          <h3>FAQ Auto-Response Bot</h3>
-          <p>"What's my case status?" "Did you receive my documents?" An AI bot handles these instantly, 24/7. Frees you from the inbox.</p>
+          <h3>よくある質問へのLINE自動回答</h3>
+          <p>顧問先からの定型的な質問にAIが自動で回答。「社会保険の手続きはいつまでですか？」などの繰り返し質問対応から解放されます。</p>
           <span class="service-tag">AI</span>
-          <span class="service-tag">24/7 response</span>
+          <span class="service-tag">FAQ自動化</span>
         </div>
       </div>
       <div class="service-item">
         <div class="service-num">05</div>
         <div class="service-body">
-          <h3>Legal Update Monitoring</h3>
-          <p>Relevant case law updates, regulatory changes, and court announcements automatically collected and delivered to you daily.</p>
-          <span class="service-tag">Auto-research</span>
-          <span class="service-tag">Daily digest</span>
+          <h3>期限アラートの自動通知</h3>
+          <p>社会保険・労働保険の各種期限をシステムが管理し、対応期日の前に自動でアラートを送信。抜け漏れゼロの体制を構築します。</p>
+          <span class="service-tag">アラート</span>
+          <span class="service-tag">期限管理</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PRICING -->
 <section id="pricing" style="background: var(--surface);">
   <div class="container">
     <div class="section-label">PRICING</div>
-    <h2 class="section-title">Simple monthly retainers</h2>
-    <p class="section-desc">No setup fees. No long-term contracts. Cancel anytime.</p>
+    <h2 class="section-title">料金プラン</h2>
+    <p class="section-desc">事務所の規模や課題に合わせて選べる3プラン。初期費用は一切かかりません。</p>
     <div class="pricing-grid">
       <div class="pricing-card">
-        <div class="plan-name">STARTER</div>
-        <div class="plan-price">$500<span>/mo</span></div>
-        <div class="plan-range">Best for solo attorneys</div>
+        <div class="plan-name">LITE</div>
+        <div class="plan-price">2〜3<span>万円/月</span></div>
+        <div class="plan-range">まず試したい事務所向け</div>
         <ul class="plan-features">
-          <li>Automated client reminders</li>
-          <li>Document follow-up workflows</li>
-          <li>Monthly performance report</li>
-          <li>Email support</li>
+          <li>顧問先へのLINEリマインド自動送信</li>
+          <li>書類督促の自動化</li>
+          <li>月次レポート</li>
+          <li>メールサポート</li>
         </ul>
-        <a href="#contact" class="plan-btn">Start with this plan</a>
+        <a href="#contact" class="plan-btn">このプランで相談する</a>
       </div>
       <div class="pricing-card featured">
         <div class="plan-name">STANDARD</div>
-        <div class="plan-price">$1,200<span>/mo</span></div>
-        <div class="plan-range">Best for 2–5 attorney firms</div>
+        <div class="plan-price">5〜8<span>万円/月</span></div>
+        <div class="plan-range">業務効率化を本格的に進めたい事務所向け</div>
         <ul class="plan-features">
-          <li>Everything in Starter</li>
-          <li>Deadline alert system</li>
-          <li>Client Notion dashboard</li>
-          <li>Legal update monitoring</li>
-          <li>Chat support</li>
+          <li>LITEの全機能</li>
+          <li>助成金・法改正情報の自動収集</li>
+          <li>Notionダッシュボード構築</li>
+          <li>期限アラート自動通知</li>
+          <li>チャットサポート</li>
         </ul>
-        <a href="#contact" class="plan-btn">Start with this plan</a>
+        <a href="#contact" class="plan-btn">このプランで相談する</a>
       </div>
       <div class="pricing-card">
         <div class="plan-name">FULL</div>
-        <div class="plan-price">$2,500<span>/mo</span></div>
-        <div class="plan-range">Best for 5–20 attorney firms</div>
+        <div class="plan-price">10〜15<span>万円/月</span></div>
+        <div class="plan-range">完全自動化を目指す事務所向け</div>
         <ul class="plan-features">
-          <li>Everything in Standard</li>
-          <li>FAQ auto-response bot</li>
-          <li>Custom automation builds</li>
-          <li>Priority support</li>
-          <li>Monthly strategy call</li>
+          <li>STANDARDの全機能</li>
+          <li>LINE FAQ自動回答</li>
+          <li>カスタム自動化構築</li>
+          <li>優先サポート対応</li>
+          <li>月次改善ミーティング</li>
         </ul>
-        <a href="#contact" class="plan-btn">Start with this plan</a>
+        <a href="#contact" class="plan-btn">このプランで相談する</a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- FLOW -->
 <section id="flow">
   <div class="container">
-    <div class="section-label">PROCESS</div>
-    <h2 class="section-title">How it works</h2>
-    <p class="section-desc">From free audit to live automation in as little as 2 weeks.</p>
+    <div class="section-label">FLOW</div>
+    <h2 class="section-title">導入の流れ</h2>
+    <p class="section-desc">無料診断から導入まで、最短2週間で自動化環境を構築します。</p>
     <div class="flow-steps">
       <div class="flow-step">
         <div class="flow-step-num">01</div>
-        <h3>Free Workflow Audit</h3>
-        <p>I map your current workflows and identify what can be automated. 30–60 min call.</p>
+        <h3>無料業務診断</h3>
+        <p>現在の業務フローをヒアリング。自動化できる箇所を洗い出します。（30〜60分）</p>
       </div>
       <div class="flow-step">
         <div class="flow-step-num">02</div>
-        <h3>Proposal & Quote</h3>
-        <p>You get a clear plan with expected time savings and monthly cost.</p>
+        <h3>提案・お見積り</h3>
+        <p>診断結果をもとに最適なプランと費用をご提案します。</p>
       </div>
       <div class="flow-step">
         <div class="flow-step-num">03</div>
-        <h3>Build & Test</h3>
-        <p>I build and test the automations. You approve before anything goes live.</p>
+        <h3>構築・テスト</h3>
+        <p>自動化システムを構築。テスト運用で動作確認を行います。</p>
       </div>
       <div class="flow-step">
         <div class="flow-step-num">04</div>
-        <h3>Go Live & Maintain</h3>
-        <p>Automations run in the background. I handle all maintenance and updates.</p>
+        <h3>本番稼働</h3>
+        <p>導入後も継続サポート。安心して運用いただけます。</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="audit-section">
+<!-- FREE DIAGNOSIS -->
+<section class="diagnosis-section">
   <div class="container">
-    <div class="audit-box">
-      <div class="audit-badge">Limited Availability</div>
-      <h2>Free Workflow Audit<br>— 3 spots available</h2>
-      <p>Not sure where to start? I'll map your current workflows, identify your biggest time drains, and tell you exactly what can be automated — at no cost.</p>
-      <div class="audit-list">
-        <div class="audit-item">Completely free</div>
-        <div class="audit-item">Online via video call</div>
-        <div class="audit-item">30–60 minutes</div>
-        <div class="audit-item">No sales pressure</div>
+    <div class="diagnosis-box">
+      <div class="diagnosis-badge">期間限定</div>
+      <h2>無料業務診断を<br>3事務所限定で実施中</h2>
+      <p>「どこから手をつければいいか分からない」という事務所様でも大丈夫です。現在の業務フローをお聞きし、自動化できる箇所と期待できる効果をレポートします。費用は一切かかりません。</p>
+      <div class="diagnosis-list">
+        <div class="diagnosis-item">費用ゼロ</div>
+        <div class="diagnosis-item">オンライン対応</div>
+        <div class="diagnosis-item">30〜60分</div>
+        <div class="diagnosis-item">強引な営業なし</div>
       </div>
-      <a href="#contact" class="btn-primary">Claim Your Free Audit →</a>
-      <p class="slots">Only 3 spots available — first come, first served</p>
+      <a href="#contact" class="btn-primary">今すぐ無料診断に申し込む →</a>
+      <p class="slots">残り3枠（定員になり次第終了）</p>
     </div>
   </div>
 </section>
 
+<!-- CONTACT FORM -->
 <section id="contact">
   <div class="container">
     <div class="form-wrapper">
-      <h2>Claim your free audit</h2>
-      <p>Fill out the form and I'll get back to you within 24 hours to schedule a call.</p>
-      <form action="https://formspree.io/f/mjgzplrl" method="POST">
-        <input type="hidden" name="_subject" value="[IZA9] Free Workflow Audit Request">
-        <input type="hidden" name="_next" value="https://izack9.github.io/AUTOMAITION/thanks-en.html">
+      <h2>無料業務診断に申し込む</h2>
+      <p>フォームにご入力いただくと、24時間以内にご連絡いたします。</p>
+      <form id="contactForm" action="https://formspree.io/f/mjgzplrl" method="POST">
+        <input type="hidden" name="_subject" value="【IZA9】無料業務診断のお申し込み">
+        <input type="hidden" name="_next" value="https://izack9.github.io/AI-/thanks.html">
         <div class="form-group">
-          <label>Your Name & Firm <span class="required">*</span></label>
-          <input type="text" name="name" placeholder="e.g. John Smith — Smith Law Group" required>
+          <label>事務所名・お名前 <span class="required">*</span></label>
+          <input type="text" name="name" placeholder="例：〇〇社会保険労務士事務所 山田 太郎" required>
         </div>
         <div class="form-group">
-          <label>Email Address <span class="required">*</span></label>
-          <input type="email" name="email" placeholder="e.g. john@smithlawgroup.com" required>
+          <label>メールアドレス <span class="required">*</span></label>
+          <input type="email" name="email" placeholder="例：info@example.com" required>
         </div>
         <div class="form-group">
-          <label>Firm Size</label>
+          <label>事務所の規模</label>
           <select name="size">
-            <option value="">Select...</option>
-            <option value="Solo">Solo attorney</option>
-            <option value="2-5">2–5 attorneys</option>
-            <option value="6-10">6–10 attorneys</option>
-            <option value="11+">11+ attorneys</option>
+            <option value="">選択してください</option>
+            <option value="1名（個人）">1名（個人）</option>
+            <option value="2〜5名">2〜5名</option>
+            <option value="6〜10名">6〜10名</option>
+            <option value="11名以上">11名以上</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Biggest time drain right now</label>
+          <label>特に困っている業務</label>
           <select name="problem">
-            <option value="">Select...</option>
-            <option value="Client reminders">Client reminders & follow-ups</option>
-            <option value="Deadline tracking">Deadline tracking</option>
-            <option value="FAQ responses">Answering repetitive client questions</option>
-            <option value="Document management">Document management</option>
-            <option value="Other">Other</option>
+            <option value="">選択してください</option>
+            <option value="書類督促・リマインド">書類督促・リマインド</option>
+            <option value="法改正・助成金情報収集">法改正・助成金情報収集</option>
+            <option value="期限管理">期限管理</option>
+            <option value="顧問先からのFAQ対応">顧問先からのFAQ対応</option>
+            <option value="その他">その他</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Anything else you'd like to share</label>
-          <textarea name="message" placeholder="Tell me about your current workflow challenges..."></textarea>
+          <label>ご質問・ご要望</label>
+          <textarea name="message" placeholder="気になっていることや現在の業務課題など、何でもお気軽にどうぞ"></textarea>
         </div>
-        <button type="submit" class="form-submit">Claim Free Audit (No Cost)</button>
-        <p class="form-note">I'll respond within 24 hours. No spam, no sales calls unless you want them.</p>
+        <button type="submit" class="form-submit">無料診断に申し込む（完全無料）</button>
+        <p class="form-note">送信後、24時間以内にメールまたはXのDMにてご連絡いたします。</p>
       </form>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">IZA9</div>
   <div class="footer-links">
-    <a href="https://x.com/iza9681447" target="_blank">X (Twitter)</a>
+    <a href="https://x.com/iza9681447" target="_blank">X（Twitter）</a>
     <a href="https://www.lancers.jp/profile/iz96" target="_blank">Lancers</a>
-    <a href="#contact">Contact</a>
+    <a href="#contact">お問い合わせ</a>
   </div>
   <p class="footer-copy">© 2026 IZA9 All rights reserved.</p>
 </footer>
 
 <script>
+// スムーズスクロール強化
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   });
 });
+
+// スクロールアニメーション
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
   });
 }, { threshold: 0.1 });
-document.querySelectorAll('.pain-card,.service-item,.pricing-card,.flow-step,.big-stat-card').forEach(el => {
-  el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='opacity 0.5s ease,transform 0.5s ease';
+
+document.querySelectorAll('.pain-card, .service-item, .pricing-card, .flow-step').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);
 });
 </script>
